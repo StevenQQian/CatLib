@@ -31,7 +31,7 @@ namespace catlib {
 
             void turnToPoint(double x, double y, double timeOut, double speedCap = 1);
 
-            void follow(Curve path, double speedCap = 1, double timeOut, double lookAhead, bool reversed = false);
+            void follow(Curve path, double timeOut, double lookAhead, double speedCap = 1, bool reversed = false);
 
             Drivetrain* drivetrain;
             OdomSensors* odomSensors;

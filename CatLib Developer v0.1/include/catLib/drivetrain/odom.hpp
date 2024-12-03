@@ -16,7 +16,6 @@ class TrackingWheel{
 
         double distanceTraveled();
 
-    private:
         pros::Rotation* rotation = nullptr;
         double wheelDiameter;
         double offset;
@@ -24,9 +23,8 @@ class TrackingWheel{
 
 class OdomSensors {
     public:
-        OdomSensors(TrackingWheel* vertical, TrackingWheel* horizontal, pros::Imu* inertial);
+        OdomSensors(pros::Imu* inertial, TrackingWheel* vertical, TrackingWheel* horizontal);
 
-    private:
         TrackingWheel* vertical = nullptr;
         TrackingWheel* horizontal = nullptr;
         pros::Imu* inertial = nullptr;
