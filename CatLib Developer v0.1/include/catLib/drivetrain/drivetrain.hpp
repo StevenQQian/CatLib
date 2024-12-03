@@ -1,6 +1,7 @@
 #pragma once
 
 #include "api.h"
+#include "odom.hpp"
 
 namespace catlib {
     struct PIDf {
