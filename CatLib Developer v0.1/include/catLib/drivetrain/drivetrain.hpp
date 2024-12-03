@@ -34,13 +34,13 @@ namespace catlib {
             pros::Imu* inertial = nullptr;
     };
 
-    class PIDConstants {
-        public:
-            PIDConstants(double kP, double kI, double kD);
-        private:
-            double kP;
-            double kI;
-            double kD;
+    struct PIDf {
+        PIDf(double kP, double kI, double kD, double kF = 0, bool signFlipReset = true, double antiWindup = 0);
+        void setConstants(double kP, double kI, double kD, double kF = 0);
+        
+        double kP, kI, kD, kF;
+        bool signFlipReset;
+        double antiWindup;
     };
 
     enum class DriveType { 
