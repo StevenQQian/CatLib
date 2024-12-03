@@ -15,6 +15,7 @@
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
 #include "Eigen/Dense"
+using namespace Eigen;
 
 /**
  * If defined, some commonly used enums will have preprocessor macros which give
@@ -77,6 +78,8 @@ void opcontrol(void);
  */
 //#include <iostream>
 #include "catLib/drivetrain/drivetrain.hpp"
+#include "catLib/pursuit/curve.hpp"
+#include "catLib/drivetrain/chassis.hpp"
 #endif
 
 #endif  // _PROS_MAIN_H_

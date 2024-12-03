@@ -26,9 +26,7 @@ namespace catlib {
 
     class OdomSensors {
         public:
-            OdomSensors(TrackingWheel* vertical, TrackingWheel* horizontal, pros::Imu* inertial);
-
-        private:
+            OdomSensors(pros::Imu* inertial, TrackingWheel* vertical = nullptr, TrackingWheel* horizontal = nullptr);
             TrackingWheel* vertical = nullptr;
             TrackingWheel* horizontal = nullptr;
             pros::Imu* inertial = nullptr;
@@ -37,7 +35,8 @@ namespace catlib {
     class PIDConstants {
         public:
             PIDConstants(double kP, double kI, double kD);
-        private:
+
+            void setPIDConstants(double kP, double kI, double kD);
             double kP;
             double kI;
             double kD;
@@ -51,18 +50,12 @@ namespace catlib {
 
     class Drivetrain {
         public:
-            Drivetrain(pros::MotorGroup* leftMotors, pros::MotorGroup* rightMotors, double wheelDiameter, double driveRPM, OdomSensors* odomSensors, DriveType d);
-
-            void calibrate();
-
-            void setPose(double x, double y, double theta, bool isRadian = false);
-
-            void driveStraightPID(double targetDistance);
-        private:
+            Drivetrain(pros::MotorGroup* leftMotors, pros::MotorGroup* rightMotors, double wheelDiameter, double driveRPM);
             pros::MotorGroup* leftMotors;
             pros::MotorGroup* rightMotors;
-            OdomSensors* odomSensors;
             double wheelDiameter;
             double driveRPM;
     };
+
+    
 }
