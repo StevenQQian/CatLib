@@ -14,6 +14,7 @@
 
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
+#include "Eigen/Dense"
 
 /**
  * If defined, some commonly used enums will have preprocessor macros which give
@@ -75,6 +76,7 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
 //#include <iostream>
+#include "catLib/drivetrain/drivetrain.hpp"
 #endif
 
 #endif  // _PROS_MAIN_H_
