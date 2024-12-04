@@ -1,0 +1,59 @@
+name: Build Template
+
+on:
+  push:
+    branches: '*'
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Compile
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Get short SHA
+        uses: benjlevesque/short-sha@v2.2
+        id: short-sha
+        with:
+          length: 6
+      
+      - name: Set short SHA
+        run: echo $SHA
+        env:
+          SHA: ${{ steps.short-sha.outputs.sha }}
+    
+      - name: Install ARM Toolchain
+        uses: fiam/arm-none-eabi-gcc@v1.0.4
+        with:
+          release: "10-2020-q4"
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+  
+      - name: PIP Installer
+        uses: BSFishy/pip-action@v1
+        with:
+          packages: pros-cli
+  
+      - name: Testing PROS Install 
+        run: pros --version
+
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Build PROS Template
+        run: pros make template
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: "catLib@*.zip"
+          retention-days: 89
