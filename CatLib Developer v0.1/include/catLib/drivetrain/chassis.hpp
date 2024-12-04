@@ -1,13 +1,21 @@
-#include "main.h"
+#pragma once
+
+#include "api.h"
+#include "drivetrain.hpp"
+#include "odom.hpp"
+#include "catLib/pursuit/curve.hpp"
+#include "pid.hpp"
 
 namespace catlib {
     class Chassis {
         public:
-            Chassis(Drivetrain* drivetrain, PIDConstants* linearPID, PIDConstants* angularPID, OdomSensors* odomSensors, DriveType d);
+            Chassis(Drivetrain* drivetrain, PIDConstants* linearPIDConstants, PIDConstants* angularPIDConstants, OdomSensors* odomSensors, DriveType d);
 
             void calibrate();
 
-            void setPose(double x, double y, double theta, bool isRadian = false);
+            int track();
+
+            void setPose(double x, double y, double theta = -10000000, bool isRadian = false);
 
             void setBrakeMode(pros::MotorBrake brakeMode);
 
@@ -15,15 +23,13 @@ namespace catlib {
 
             Vector3d getPoseWithTheta(bool isRadian);
 
-            void splitArcade();
+            void arcadeDrive(double linear, double angular);
 
-            void singleArcade();
-
-            void tankDrive();
+            void tankDrive(double l, double r);
 
             void setDrive(double l, double r);
 
-            void driveStraightPID(double targetDistance, double speedCap = 1);
+            void driveStraightPID(double targetDistance, double speedCap = 1, double timeOut = 5000);
 
             void turnToHeadingPID(double targetDeg, double speedCap = 1);
 
@@ -35,8 +41,10 @@ namespace catlib {
 
             Drivetrain* drivetrain;
             OdomSensors* odomSensors;
-            PIDConstants* linearPID;
-            PIDConstants* angularPID;
+            PIDConstants* linearPIDConstants;
+            PIDConstants* angularPIDConstants;
+            PID linearPID;
+            PID angularPID;
             DriveType d;
             Vector2d pose;
             double heading;

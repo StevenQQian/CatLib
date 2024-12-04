@@ -3,17 +3,7 @@
 #include "api.h"
 #include "odom.hpp"
 
-namespace catlib {
-
-    class PIDConstants {
-        public:
-            PIDConstants(double kP, double kI, double kD);
-
-            void setPIDConstants(double kP, double kI, double kD);
-            double kP;
-            double kI;
-            double kD;
-    };
+namespace catlib {  
 
     enum class DriveType { 
         SPLIT_ARCADE,
