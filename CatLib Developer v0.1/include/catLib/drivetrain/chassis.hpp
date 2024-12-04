@@ -1,4 +1,10 @@
-#include "main.h"
+#pragma once
+
+#include "api.h"
+#include "drivetrain.hpp"
+#include "odom.hpp"
+#include "../pursuit/curve.hpp"
+#include "pid.hpp"
 
 namespace catlib {
     class Chassis {
