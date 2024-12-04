@@ -7,6 +7,8 @@ namespace catlib {
 
             void calibrate();
 
+            int track();
+
             void setPose(double x, double y, double theta, bool isRadian = false);
 
             void setBrakeMode(pros::MotorBrake brakeMode);

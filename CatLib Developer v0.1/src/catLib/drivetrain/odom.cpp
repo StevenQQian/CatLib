@@ -11,7 +11,7 @@ void catlib::TrackingWheel::reset() {
 }
 
 double catlib::TrackingWheel::distanceTraveled() {
-    return this->rotation->get_position() / 36000 * wheelDiameter * M_PI;
+    return this->rotation->get_position() / 36000 * this->wheelDiameter * M_PI;
 }
 
 catlib::OdomSensors::OdomSensors(pros::Imu* inertial, TrackingWheel* vertical = nullptr, TrackingWheel* horizontal = nullptr) {
