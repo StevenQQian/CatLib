@@ -1,4 +1,4 @@
-#include "main.h"
+#pragma once
 
 namespace catlib {
     class PIDConstants {

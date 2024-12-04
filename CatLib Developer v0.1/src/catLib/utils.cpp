@@ -1,4 +1,4 @@
-#include "main.h"
+#include "catLib/utils.hpp"
 
 double catlib::toRadian(double degree) {
     return degree / 180 * M_PI;

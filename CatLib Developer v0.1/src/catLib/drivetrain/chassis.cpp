@@ -1,4 +1,4 @@
-#include "main.h"
+#include "catLib/drivetrain/chassis.hpp"
 
 catlib::Chassis::Chassis(Drivetrain* drivetrain, PIDConstants* linearPIDConstants, PIDConstants* angularPIDConstants, OdomSensors* odomSensors, DriveType d) {
     this->drivetrain = drivetrain;
