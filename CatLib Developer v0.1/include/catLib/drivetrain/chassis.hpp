@@ -9,7 +9,7 @@ namespace catlib {
 
             int track();
 
-            void setPose(double x, double y, double theta, bool isRadian = false);
+            void setPose(double x, double y, double theta = -10000000, bool isRadian = false);
 
             void setBrakeMode(pros::MotorBrake brakeMode);
 
@@ -23,7 +23,7 @@ namespace catlib {
 
             void setDrive(double l, double r);
 
-            void driveStraightPID(double targetDistance, double speedCap = 1);
+            void driveStraightPID(double targetDistance, double speedCap = 1, double timeOut = 5000);
 
             void turnToHeadingPID(double targetDeg, double speedCap = 1);
 

@@ -93,4 +93,48 @@ void catlib::Chassis::calibrate() {
     this->odomSensors->inertial->tare();
     this->pose[0] = 0;
     this->pose[1] = 0;
+
+    pros::Task trackingT(track);
+}
+
+void catlib::Chassis::setPose(double x, double y, double theta = -10000000, bool isRadian = false) {
+    if (theta != -10000000) {
+        if (isRadian) {
+            this->odomSensors->inertial->set_rotation(theta);
+        }
+    }
+    this->pose[0] = x;
+    this->pose[1] = y;
+}
+
+void catlib::Chassis::setDrive(double l, double r) {
+    this->drivetrain->leftMotors->move_voltage(l);
+    this->drivetrain->rightMotors->move_voltage(r);
+}
+
+void catlib::Chassis::driveStraightPID(double targetDistance, double speedCap = 1, double timeOut = 5000) {
+    this->linearPID.reset();
+    this->angularPID.reset();
+    double error = targetDistance;
+    double targetDeg = this->odomSensors->inertial->get_rotation();
+    double time = 0;
+    double distance = this->odomSensors->vertical->distanceTraveled();
+    double prevDistance = distance;
+    double distanceTraveled = 0;
+    while ((error > 0.2 || (this->drivetrain->leftMotors->get_actual_velocity() * this->drivetrain->wheelDiameter / 6000 * M_PI) > 0.06) && time <= timeOut) {
+        distance = this->odomSensors->vertical->distanceTraveled();
+        double deltaDistance = distance - prevDistance;
+        distanceTraveled += deltaDistance;
+        error = targetDistance - distanceTraveled;
+        double driveOutput = this->linearPID.output(error);
+        double degError = targetDeg - this->odomSensors->inertial->get_rotation();
+        double turnOutput = this->angularPID.output(degError);
+        driveOutput = catlib::limit(driveOutput, -12000 * speedCap, 12000 * speedCap);
+        turnOutput = catlib::limit(turnOutput, -12000 * speedCap, 12000 * speedCap);
+        this->setDrive(left_velocity_scaling(driveOutput, turnOutput), right_velocity_scaling(driveOutput, turnOutput));
+        prevDistance = distance;
+        time += 10;
+        pros::delay(10);
+    }
+    
 }

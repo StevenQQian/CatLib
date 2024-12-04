@@ -3,7 +3,7 @@
 #include "api.h"
 #include "odom.hpp"
 
-namespace catlib {
+namespace catlib {  
 
     enum class DriveType { 
         SPLIT_ARCADE,
