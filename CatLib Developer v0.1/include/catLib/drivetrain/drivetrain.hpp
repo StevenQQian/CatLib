@@ -5,16 +5,6 @@
 
 namespace catlib {
 
-    class PIDConstants {
-        public:
-            PIDConstants(double kP, double kI, double kD);
-
-            void setPIDConstants(double kP, double kI, double kD);
-            double kP;
-            double kI;
-            double kD;
-    };
-
     enum class DriveType { 
         SPLIT_ARCADE,
         SINGLE_ARCADE,
