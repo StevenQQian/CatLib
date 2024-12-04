@@ -15,11 +15,9 @@ namespace catlib {
 
             Vector3d getPoseWithTheta(bool isRadian);
 
-            void splitArcade();
+            void arcadeDrive(double linear, double angular);
 
-            void singleArcade();
-
-            void tankDrive();
+            void tankDrive(double l, double r);
 
             void setDrive(double l, double r);
 

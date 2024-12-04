@@ -80,6 +80,7 @@ void opcontrol(void);
 #include "catLib/drivetrain/drivetrain.hpp"
 #include "catLib/pursuit/curve.hpp"
 #include "catLib/drivetrain/chassis.hpp"
+#include "catLib/utils.hpp"
 #endif
 
 #endif  // _PROS_MAIN_H_
