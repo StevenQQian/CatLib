@@ -137,5 +137,5 @@ void catlib::Chassis::driveStraightPID(double targetDistance, double speedCap = 
         time += 10;
         pros::delay(10);
     }
-    
+    this->setDrive(0, 0);
 }
