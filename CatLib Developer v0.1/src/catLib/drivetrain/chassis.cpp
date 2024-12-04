@@ -1,10 +1,16 @@
 #include "main.h"
 
-catlib::Chassis::Chassis(Drivetrain* drivetrain, PIDConstants* linearPID, PIDConstants* angularPID, OdomSensors* odomSensors, DriveType d) {
+catlib::Chassis::Chassis(Drivetrain* drivetrain, PIDConstants* linearPIDConstants, PIDConstants* angularPIDConstants, OdomSensors* odomSensors, DriveType d) {
     this->drivetrain = drivetrain;
-    this->linearPID = linearPID;
-    this->angularPID = angularPID;
+    this->linearPIDConstants = linearPIDConstants;
+    this->angularPIDConstants = angularPIDConstants;
     this->odomSensors = odomSensors;
+    PID linearPID = PID(linearPIDConstants);
+    PID angularPID = PID(angularPIDConstants);
+
+    this->angularPID = angularPID;
+    this->linearPID = linearPID;
+
     this->d = d;
 }
 

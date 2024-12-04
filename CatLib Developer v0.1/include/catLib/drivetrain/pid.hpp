@@ -10,4 +10,30 @@ namespace catlib {
             double kI;
             double kD;
     };
+
+    class PID {
+        public:
+            PID(PIDConstants* constants, PIDType t);
+
+            PID();
+
+            void reset();
+
+            double output(double error);
+
+            void setConstants(double kP, double kI, double kD);
+
+        protected:
+            PIDType t;
+            double integral;
+            double prevError;
+            double derivative;
+            double integralActivationRange;
+            PIDConstants* constants;
+    };
+
+    enum class PIDType {
+        LINEAR,
+        ANGULAR
+    };
 }

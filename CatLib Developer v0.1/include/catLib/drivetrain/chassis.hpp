@@ -3,7 +3,7 @@
 namespace catlib {
     class Chassis {
         public:
-            Chassis(Drivetrain* drivetrain, PIDConstants* linearPID, PIDConstants* angularPID, OdomSensors* odomSensors, DriveType d);
+            Chassis(Drivetrain* drivetrain, PIDConstants* linearPIDConstants, PIDConstants* angularPIDConstants, OdomSensors* odomSensors, DriveType d);
 
             void calibrate();
 
@@ -33,8 +33,10 @@ namespace catlib {
 
             Drivetrain* drivetrain;
             OdomSensors* odomSensors;
-            PIDConstants* linearPID;
-            PIDConstants* angularPID;
+            PIDConstants* linearPIDConstants;
+            PIDConstants* angularPIDConstants;
+            PID linearPID;
+            PID angularPID;
             DriveType d;
             Vector2d pose;
             double heading;
