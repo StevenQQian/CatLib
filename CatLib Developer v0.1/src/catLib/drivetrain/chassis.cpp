@@ -1,5 +1,6 @@
 #include "catLib/drivetrain/chassis.hpp"
 #include "catLib/utils.hpp"
+#include "catLib/drivetrain/pid.hpp"
 
 catlib::Chassis::Chassis(Drivetrain* drivetrain, PIDConstants* linearPIDConstants, PIDConstants* angularPIDConstants, OdomSensors* odomSensors, DriveType d) {
     this->drivetrain = drivetrain;
@@ -20,12 +21,6 @@ void catlib::Chassis::setBrakeMode(pros::MotorBrake brakeMode) {
     this->drivetrain->rightMotors->set_brake_mode_all(brakeMode);
 }
 
-void catlib::Chassis::calibrate() {
-    this->odomSensors->inertial->tare_rotation();
-    this->odomSensors->horizontal->reset();
-    this->odomSensors->vertical->reset();
-}
-
 Vector2d catlib::Chassis::getPose() {
     return this->pose;
 }
@@ -39,7 +34,7 @@ Vector3d catlib::Chassis::getPoseWithTheta(bool isRadian = false) {
     return currPose;
 }
 
-int catlib::Chassis::track() {
+void catlib::Chassis::track() {
     double currentVertical = this->odomSensors->vertical->distanceTraveled();
     double currentHorizontal = this->odomSensors->horizontal->distanceTraveled();
     double prevVertical = currentVertical;
@@ -84,7 +79,6 @@ int catlib::Chassis::track() {
         prevVertical = currentVertical;
         pros::delay(5);
     }
-    return 0;
 }
 
 void catlib::Chassis::calibrate() {
@@ -94,8 +88,6 @@ void catlib::Chassis::calibrate() {
     this->odomSensors->inertial->tare();
     this->pose[0] = 0;
     this->pose[1] = 0;
-
-    pros::Task trackingT(track);
 }
 
 void catlib::Chassis::setPose(double x, double y, double theta = -10000000, bool isRadian = false) {

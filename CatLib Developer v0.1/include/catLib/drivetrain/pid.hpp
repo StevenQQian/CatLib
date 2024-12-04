@@ -1,6 +1,10 @@
 #pragma once
 
 namespace catlib {
+    enum class PIDType {
+        LINEAR,
+        ANGULAR
+    };
     class PIDConstants {
         public:
             PIDConstants(double kP, double kI, double kD);
@@ -30,10 +34,5 @@ namespace catlib {
             double derivative;
             double integralActivationRange;
             PIDConstants* constants;
-    };
-
-    enum class PIDType {
-        LINEAR,
-        ANGULAR
     };
 }
