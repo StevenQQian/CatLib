@@ -17,6 +17,7 @@ jobs:
 
       - name: Run LemLib/pros-build
         uses: LemLib/pros-build@v2.0.2
+        id: test
         with:
           lib_folder_name: catLib
 
