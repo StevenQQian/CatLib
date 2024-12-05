@@ -1,4 +1,7 @@
-#include "main.h"
+#include "catLib/drivetrain/pid.hpp"
+#include "catLib/drivetrain/chassis.hpp"
+#include "catLib/drivetrain/odom.hpp"
+#include "catLib/drivetrain/drivetrain.hpp"
 
 catlib::PIDConstants::PIDConstants(double kP, double kI, double kD) {
     this->kP = kP;
