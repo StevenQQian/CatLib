@@ -35,6 +35,8 @@ Add the following line to `include/main.h` in your project:
 #include "catLib/api.hpp"
 ```
 
+## To continue, visit https://github.com/StevenQQian/CatLib/blob/main/docs/2-CONFIGURATION.md
+
 ## Uninstallation
 
 To uninstall CatLib, run the following:
