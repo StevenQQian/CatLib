@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: CatLib Stable Depot
         # where to find gh action and what version to use
-      - uses: LemLib/pros-depot@dbaa18709f8239296212a47328a221290bd31fd8
+        uses: LemLib/pros-depot@dbaa18709f8239296212a47328a221290bd31fd8
         with:
           # gives the github action the permissions specified above
           token: ${{ github.token }}
@@ -27,7 +27,7 @@ jobs:
           readable-json: true
 
       - name: Eigen Depot
-      - uses: LemLib/pros-depot@dbaa18709f8239296212a47328a221290bd31fd8
+        uses: LemLib/pros-depot@dbaa18709f8239296212a47328a221290bd31fd8
         with:
           # gives the github action the permissions specified above
           token: ${{ github.token }}
