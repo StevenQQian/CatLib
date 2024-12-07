@@ -12,29 +12,20 @@ Before installing CatLib, ensure you have the following prerequisites:
 
 Follow these steps to install CatLib:
 
-1. **Install depot:**
-	
-	```bash
-	git clone https://github.com/yourusername/CatLib.git
-	```
+### **Navigate to project:**
+Open your project in Visual Studio Code. Click on the PROS icon in the left sidebar and then `Integrated Terminal`. Click on the newly opened terminal and type the following commands.
 
-2. **Navigate to the project directory:**
+### **Install depot:**
+This step adds a remote respoitory to your project so it can find the latest CatLib release link. This will make updating CatLib easier in the future.
 
-	```bash
-	cd CatLib
-	```
+```bash
+pros c add-depot catLib https://raw.githubusercontent.com/StevenQQian/CatLib/refs/heads/depot/stable.json
+```
 
-3. **Build the project:**
-
-	```bash
-	pros build
-	```
-
-4. **Upload the project to the VEX V5 Brain:**
-
-	```bash
-	pros upload
-	```
+### **Install template:**
+```bash
+pros c apply catLib
+```
 
 ## Verifying the Installation
 

@@ -14,8 +14,6 @@
 
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
-#include "Eigen/Dense"
-using namespace Eigen;
 
 /**
  * If defined, some commonly used enums will have preprocessor macros which give
@@ -37,6 +35,7 @@ using namespace Eigen;
 #define PROS_USE_LITERALS
 
 #include "api.h"
+#include "catLib/api.hpp"
 
 /**
  * You should add more #includes here
@@ -76,12 +75,7 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
-#include <iostream>
-#include "catLib/drivetrain/drivetrain.hpp"
-#include "catLib/pursuit/curve.hpp"
-#include "catLib/drivetrain/chassis.hpp"
-#include "catLib/utils.hpp"
-#include "catLib/drivetrain/pid.hpp"
+//#include <iostream>
 #endif
 
 #endif  // _PROS_MAIN_H_
