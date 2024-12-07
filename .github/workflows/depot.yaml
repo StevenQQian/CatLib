@@ -25,6 +25,7 @@ jobs:
           source-repo: StevenQQian/CatLib
           # makes the json output human readable
           readable-json: true
+          pre-release-branch:
 
       - name: Eigen Depot
         uses: LemLib/pros-depot@dbaa18709f8239296212a47328a221290bd31fd8
@@ -38,3 +39,4 @@ jobs:
           # makes the json output human readable
           readable-json: true
           path: eigen.json
+          pre-release-branch:
