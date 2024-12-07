@@ -1,0 +1,22 @@
+[
+  {
+    "metadata": {
+      "location": "https://github.com/LemLib/Eigen/releases/download/v3.4.90-4.0.6/Eigen%403.4.90.zip"
+    },
+    "name": "Eigen",
+    "py/object": "pros.conductor.templates.base_template.BaseTemplate",
+    "supported_kernels": "^4.0.6",
+    "target": "v5",
+    "version": "3.4.90"
+  },
+  {
+    "metadata": {
+      "location": "https://github.com/LemLib/Eigen/releases/download/v3.4.90/Eigen%403.4.90.zip"
+    },
+    "name": "Eigen",
+    "py/object": "pros.conductor.templates.base_template.BaseTemplate",
+    "supported_kernels": "^3.8.0",
+    "target": "v5",
+    "version": "3.4.90"
+  }
+]
