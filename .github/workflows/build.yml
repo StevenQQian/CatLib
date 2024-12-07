@@ -20,7 +20,6 @@ jobs:
         id: test
         with:
           lib_folder_name: catLib
-          no_commit_hash: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
