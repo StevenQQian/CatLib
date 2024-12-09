@@ -114,7 +114,7 @@ void catlib::Chassis::driveStraightPID(double targetDistance, double speedCap = 
     double distance = this->odomSensors->vertical->distanceTraveled();
     double prevDistance = distance;
     double distanceTraveled = 0;
-    while ((error > 0.2 || (this->drivetrain->leftMotors->get_actual_velocity() * this->drivetrain->wheelDiameter / 6000 * M_PI) > 0.06) && time <= timeOut) {
+    while ((fabs(error) > 0.2 || (this->drivetrain->leftMotors->get_actual_velocity() * this->drivetrain->wheelDiameter / 6000 * M_PI) > 0.06) && time <= timeOut) {
         distance = this->odomSensors->vertical->distanceTraveled();
         double deltaDistance = distance - prevDistance;
         distanceTraveled += deltaDistance;
@@ -130,4 +130,22 @@ void catlib::Chassis::driveStraightPID(double targetDistance, double speedCap = 
         pros::delay(10);
     }
     this->setDrive(0, 0);
+}
+
+void catlib::Chassis::turnToHeadingPID(double heading, double speedRatio, bool reversed = 0) {
+    this->angularPID.reset();
+    double error = heading - this->odomSensors->inertial->get_rotation();
+    double prevError = error;
+    double deltaError = error - prevError;
+
+    while (fabs(error) > 0.2 || fabs(deltaError) > 0.05) {
+        error = heading - this->odomSensors->inertial->get_rotation() - reversed * 180;
+        double driveOutput = this->angularPID.output(error);
+        if (fabs(driveOutput) > 12000 && driveOutput > 0) driveOutput = 12000;
+        else if (fabs(driveOutput) > 12000 && driveOutput < 0) driveOutput = -12000;
+        driveOutput *= speedRatio;
+        setDrive(driveOutput, -driveOutput);
+        pros::delay(10);
+    }
+    setDrive(0, 0);
 }

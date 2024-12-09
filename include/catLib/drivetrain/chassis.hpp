@@ -33,7 +33,7 @@ namespace catlib {
 
             void driveStraightPID(double targetDistance, double speedCap, double timeOut);
 
-            void turnToHeadingPID(double targetDeg, double speedCap);
+            void turnToHeadingPID(double targetDeg, double speedRatio, bool reversed);
 
             void driveToPoint(double x, double y, double timeOut, double maxVoltage, double minVoltage);
 
