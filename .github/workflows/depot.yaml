@@ -13,8 +13,9 @@ jobs:
       # permits reading of releases and writing to the depot branch
       contents: write
     steps:
+      - name: CatLib Stable Depot
         # where to find gh action and what version to use
-      - uses: LemLib/pros-depot@dbaa18709f8239296212a47328a221290bd31fd8
+        uses: LemLib/pros-depot@dbaa18709f8239296212a47328a221290bd31fd8
         with:
           # gives the github action the permissions specified above
           token: ${{ github.token }}
@@ -24,3 +25,16 @@ jobs:
           source-repo: StevenQQian/CatLib
           # makes the json output human readable
           readable-json: true
+
+      - name: Eigen Depot
+        uses: LemLib/pros-depot@dbaa18709f8239296212a47328a221290bd31fd8
+        with:
+          # gives the github action the permissions specified above
+          token: ${{ github.token }}
+          # target repo for depots
+          repo: StevenQQian/CatLib
+          # where to read releases from (can be omitted if repo is also the repo from which to read releases from)
+          source-repo: LemLib/Eigen
+          # makes the json output human readable
+          readable-json: true
+          path: eigen.json
