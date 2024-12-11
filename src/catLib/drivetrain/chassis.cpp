@@ -149,3 +149,36 @@ void catlib::Chassis::turnToHeadingPID(double heading, double speedRatio, bool r
     }
     setDrive(0, 0);
 }
+
+void catlib::Chassis::driveToPoint(double x, double y, double timeOut, double maxVoltage, double minVoltage) {
+    this->linearPID.reset();
+    this->angularPID.reset();
+    Vector2d targetPose(x, y);
+    double time = 0;
+    double targetDeg = toDeg(atan2(x - this->pose[0], y - this->pose[1]));
+    double angularError = targetDeg - to0_360(this->odomSensors->inertial->get_rotation());
+    double driveError = (targetPose - this->pose).norm();
+    bool isLineSettled = is_line_settled(x, y, targetDeg, this->pose[0], this->pose[1]);
+
+    while (!isLineSettled && time <= timeOut) {
+        driveError = (targetPose - this->pose).norm();
+        isLineSettled = is_line_settled(x, y, targetDeg, this->pose[0], this->pose[1]);
+        angularError = toNegPos180(toDeg(atan2(x - this->pose[0], y = this->pose[1])) - to0_360(this->odomSensors->inertial->get_rotation()));
+        double driveOutput = this->linearPID.output(driveError);
+        double headingScaleFactor = cos(toRadian(angularError));
+        driveOutput *= headingScaleFactor;
+        if (fabs(driveError) < 5) {
+            angularError = 0;
+        }
+        angularError = toNegPos90(angularError);
+        double turnOutput = this->angularPID.output(angularError);
+        driveOutput = limit(driveOutput, -fabs(headingScaleFactor) * maxVoltage, fabs(headingScaleFactor) * maxVoltage);
+        turnOutput = limit(turnOutput, maxVoltage, minVoltage);
+        driveOutput = limit_min(driveOutput, minVoltage);
+        this->setDrive(left_velocity_scaling(driveOutput, turnOutput), right_velocity_scaling(driveOutput, turnOutput));
+        time += 10;
+        pros::delay(10);
+    }
+    this->setDrive(0, 0);
+}
+
