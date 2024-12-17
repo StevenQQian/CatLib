@@ -182,3 +182,22 @@ void catlib::Chassis::driveToPoint(double x, double y, double timeOut, double ma
     this->setDrive(0, 0);
 }
 
+void catlib::Chassis::turnToPoint(double x, double y, double timeOut, double speedCap = 1) {
+    this->linearPID.reset();
+    this->angularPID.reset();
+    Vector2d targetPose = Vector2d(x, y);
+    double targetDeg = toNegPos180(toDeg(atan2((targetPose - this->getPose())[0], (targetPose - this->getPose())[1])));
+    double angularError = toNegPos180(targetDeg - to0_360(this->odomSensors->inertial->get_rotation()));
+    double prevAngularError = angularError;
+    double deltaError = angularError - prevAngularError;
+
+    while (fabs(angularError) > 0.3 || fabs(deltaError) > 0.3) {
+        targetDeg = toNegPos180(toDeg(atan2((targetPose - this->getPose())[0], (targetPose - this->getPose())[1])));
+        angularError = toNegPos180(targetDeg - to0_360(this->odomSensors->inertial->get_rotation()));
+        double driveOutput = this->angularPID.output(angularError);
+        driveOutput = limit(driveOutput, -12000 * speedCap, 12000 * speedCap);
+        this->setDrive(driveOutput, -driveOutput);
+        pros::delay(10);
+    }
+    this->setDrive(0, 0);
+}
