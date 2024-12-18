@@ -190,13 +190,41 @@ void catlib::Chassis::turnToPoint(double x, double y, double timeOut, double spe
     double angularError = toNegPos180(targetDeg - to0_360(this->odomSensors->inertial->get_rotation()));
     double prevAngularError = angularError;
     double deltaError = angularError - prevAngularError;
-
     while (fabs(angularError) > 0.3 || fabs(deltaError) > 0.3) {
         targetDeg = toNegPos180(toDeg(atan2((targetPose - this->getPose())[0], (targetPose - this->getPose())[1])));
         angularError = toNegPos180(targetDeg - to0_360(this->odomSensors->inertial->get_rotation()));
         double driveOutput = this->angularPID.output(angularError);
         driveOutput = limit(driveOutput, -12000 * speedCap, 12000 * speedCap);
         this->setDrive(driveOutput, -driveOutput);
+        pros::delay(10);
+    }
+    this->setDrive(0, 0);
+}
+
+void catlib::Chassis::driveWithAngle(double targetDistance, double targetDeg, double timeOut, double speedCap) {
+    this->linearPID.reset();
+    this->angularPID.reset();
+    double angularError = toNegPos180(targetDeg - to0_360(this->odomSensors->inertial->get_rotation()));
+    double prevAngularError = angularError;
+    double deltaError = angularError - prevAngularError;
+    double driveError = targetDistance;
+    double distance = this->odomSensors->vertical->distanceTraveled();
+    double prevDistance = distance;
+    double distanceTraveled = 0;
+    double time = 0;
+    while ((fabs(driveError) > 0.2 || (this->drivetrain->leftMotors->get_actual_velocity() * this->drivetrain->wheelDiameter / 6000 * M_PI)) && time <= timeOut) {
+        distance = this->odomSensors->vertical->distanceTraveled();
+        double deltaDistance = distance - prevDistance;
+        distanceTraveled += deltaDistance;
+        driveError = targetDistance - distanceTraveled;
+        double driveOutput = this->linearPID.output(driveError);
+        double angularError = toNegPos90(targetDeg - to0_360(this->odomSensors->inertial->get_rotation()));
+        double angularOutput = this->angularPID.output(angularError);
+        driveOutput = limit(driveOutput, -12000 * speedCap, 12000 * speedCap);
+        angularOutput = limit(angularOutput, speedCap * 12000, speedCap * (-12000));
+        this->setDrive(left_velocity_scaling(driveOutput, angularOutput), right_velocity_scaling(driveOutput, angularOutput));
+        prevDistance = distance;
+        time += 10;
         pros::delay(10);
     }
     this->setDrive(0, 0);

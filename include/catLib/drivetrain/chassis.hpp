@@ -39,6 +39,8 @@ namespace catlib {
 
             void turnToPoint(double x, double y, double timeOut, double speedCap);
 
+            void driveWithAngle(double targetDistance, double targetDeg, double timeOut, double speedCap);
+
             void follow(Curve path, double timeOut, double lookAhead, double speedCap, bool reversed);
 
             Drivetrain* drivetrain;
