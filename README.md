@@ -1,6 +1,6 @@
 # CatLib
  
-CatLib is a library made for VEX V5 HS Robotics Competition. 
+CatLib is a library made for VEX V5 Robotics Competition. 
 
 Developed By: 
 - Steven | 8829C 
