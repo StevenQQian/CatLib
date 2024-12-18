@@ -1,5 +1,7 @@
 #pragma once
 #include "math.h"
+#include "Eigen/Dense"
+using namespace Eigen;
 
 namespace catlib {
     double toRadian(double degree);
@@ -21,4 +23,6 @@ namespace catlib {
     double limit(double input, double min, double max);
 
     double limit_min(double drive_output, double drive_min_voltage);
+
+    double curvatureToAPoint(Vector2d currentPose, double currenHeading, Vector2d targetPose);
 }

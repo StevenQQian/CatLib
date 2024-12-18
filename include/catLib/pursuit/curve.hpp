@@ -9,9 +9,7 @@ namespace catlib {
 
             Eigen::Vector2d getPoint(double t);
 
-            Eigen::Vector2d getCarrotPoint(Eigen::Vector2d currentPose, double lookAhead);
-
-        private:
+            double getCarrotPoint(Eigen::Vector2d currentPose, double lookAhead);
             Eigen::Vector2d controlPoint1;
             Eigen::Vector2d controlPoint2;
             Eigen::Vector2d controlPoint3;

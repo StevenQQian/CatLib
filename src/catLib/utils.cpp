@@ -67,3 +67,15 @@ double catlib::limit_min(double drive_output, double drive_min_voltage){
     }
   return drive_output;
 }
+
+double catlib::curvatureToAPoint(Vector2d currentPose, double currenHeading, Vector2d targetPose) {
+    double q = (sin(currenHeading) * (targetPose[0] - currentPose[0]) - cos(currenHeading) * (targetPose[1] - currentPose[1]));
+    double side;
+    if (q > 0) {side = 1;}
+    else {side = -1;}
+    double a = -tan(currenHeading);
+    double c = tan(currenHeading) * currentPose[0] - currentPose[1];
+    double x = fabs(a * targetPose[0] + targetPose[1] + c) / sqrt((a * a) + 1);
+    double d = hypot(targetPose[0] - currentPose[0], targetPose[1] - currentPose[1]);
+    return side * ((2 * x) / (d * d));
+}

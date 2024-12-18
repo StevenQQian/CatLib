@@ -229,3 +229,44 @@ void catlib::Chassis::driveWithAngle(double targetDistance, double targetDeg, do
     }
     this->setDrive(0, 0);
 }
+
+void catlib::Chassis::follow(Curve path, double timeOut, double lookAhead, double speedRatio = 1, bool reversed = 0) {
+    Vector2d currentPose = Vector2d(this->getPose()[0], this->getPose()[1]);
+    double currentHeading = this->getPoseWithTheta()[2];
+    double curvature;
+    // Draw a perpendicular line to the connection of control point 2 and target point as the ending line
+    double targetDeg = toDeg(atan2(path.controlPoint4[0] - path.controlPoint2[0], path.controlPoint4[1] - path.controlPoint2[1]));
+    bool lineSettled = is_line_settled(path.controlPoint4[0], path.controlPoint4[1], targetDeg, this->getPose()[0], this->getPose()[1]);
+    double time = 0;
+    while ((time * 10 < timeOut && !lineSettled) || path.getCarrotPoint(this->getPose(), lookAhead) != 1) {
+        // Check if the robot went through the target line or not
+        currentPose = Vector2d(this->getPose()[0], this->getPose()[1]);
+        // Check if the robot is settled
+        lineSettled = is_line_settled(path.controlPoint4[0], path.controlPoint4[1], targetDeg, this->getPose()[0], this->getPose()[1]);
+        currentHeading = this->getPoseWithTheta()[2];
+        if (reversed) {
+            currentHeading -= 180;
+        }
+        Vector2d carrotPoint = path.getPoint(path.getCarrotPoint(this->getPose(), lookAhead));
+
+        if (carrotPoint == path.controlPoint4) {
+            // Extend the Endline for the Robot to end at the Proper Angle
+            Vector2d direction = path.controlPoint4 - path.controlPoint2;
+            direction.normalize();
+            double d = fabs(lookAhead - (currentPose - path.controlPoint4).norm());
+            carrotPoint = d * direction + path.controlPoint4;
+        }
+        double curvatureHeading = M_PI / 2 - toRadian(currentHeading);
+        curvature = curvatureToAPoint(currentPose, curvatureHeading, carrotPoint);
+        double angularError = toNegPos180(toDeg(atan2(carrotPoint[0] - this->getPose()[0], carrotPoint[1] - this->getPose()[1])) - to0_360(this->odomSensors->inertial->get_rotation()));
+        double curvScaleFactor = cos(toRadian(angularError));
+        // Velocity modifiers
+        double linearVoltage = 22000 * curvScaleFactor;
+        double feedAngularForward = 110000;
+        double angularVoltage = feedAngularForward * curvature;
+        setDrive(speedRatio * limit_min(left_velocity_scaling(linearVoltage, angularVoltage), 0), speedRatio * limit_min(right_velocity_scaling(linearVoltage, angularVoltage), 0));
+        time++;
+        pros::delay(10);
+    }
+    setDrive(0, 0);
+}

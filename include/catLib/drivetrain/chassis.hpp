@@ -41,7 +41,7 @@ namespace catlib {
 
             void driveWithAngle(double targetDistance, double targetDeg, double timeOut, double speedCap);
 
-            void follow(Curve path, double timeOut, double lookAhead, double speedCap, bool reversed);
+            void follow(Curve path, double timeOut, double lookAhead, double speedRatio, bool reversed);
 
             Drivetrain* drivetrain;
             OdomSensors* odomSensors;
