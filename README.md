@@ -1,6 +1,6 @@
-# CatLib
- 
-CatLib is a library made for VEX V5 Robotics Competition. 
+# CatLib 
+[![PROS Build Template](https://github.com/StevenQQian/CatLib/actions/workflows/build.yml/badge.svg)](https://github.com/StevenQQian/CatLib/actions/workflows/build.yml)  
+CatLib is a library made for VEX V5 Robotics Competition.
 
 Developed By: 
 - Steven | 8829C 
