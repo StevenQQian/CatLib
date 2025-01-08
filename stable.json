@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "metadata": {
+      "location": "https://github.com/StevenQQian/CatLib/releases/download/untagged-d474b66899d06672bb14/catLib%400.1.0.zip"
+    },
+    "name": "catLib",
+    "py/object": "pros.conductor.templates.base_template.BaseTemplate",
+    "supported_kernels": "^4.1.1",
+    "target": "v5",
+    "version": "0.1.0"
+  }
+]
