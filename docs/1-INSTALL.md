@@ -20,13 +20,11 @@ This step adds a remote respoitory to your project so it can find the latest Cat
 
 ```bash
 pros c add-depot catLib https://raw.githubusercontent.com/StevenQQian/CatLib/refs/heads/depot/stable.json
-pros c add-depot Eigen https://raw.githubusercontent.com/StevenQQian/CatLib/refs/heads/depot/eigen.json
 ```
 
 ### **Install templates:**
 ```bash
 pros c apply catLib
-pros c apply Eigen
 ```
 
 ### **Include headers:**
@@ -42,5 +40,4 @@ Add the following line to `include/main.h` in your project:
 To uninstall CatLib, run the following:
 ```bash
 pros c uninstall catLib
-pros c uninstall Eigen
 ```

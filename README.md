@@ -15,3 +15,6 @@ See [INSTALL.md](https://github.com/StevenQQian/CatLib/blob/main/docs/1-INSTALL.
 <summary>I'm a developer and want to run the bleeding edge!</summary>
 Download from https://nightly.link/StevenQQian/CatLib/workflows/build/main?preview and apply it to your project
 </details>
+
+## Credits
+This project is made possible by [Eigen](https://github.com/LemLib/Eigen)
