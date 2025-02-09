@@ -7,5 +7,5 @@
 #include "catLib/utils.hpp"
 #include "catLib/drivetrain/pid.hpp"
 
-#include "Eigen/Dense"
+#include "catLib/Eigen/Dense"
 using namespace Eigen;

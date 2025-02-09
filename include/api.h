@@ -20,7 +20,7 @@
 #define _PROS_API_H_
 
 #ifdef __cplusplus
-#include "Eigen/Dense"
+#include "catLib/Eigen/Dense"
 #include <cerrno>
 #include <cmath>
 #include <cstdbool>

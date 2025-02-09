@@ -1,5 +1,5 @@
 #pragma once
-#include "Eigen/Dense"
+#include "catLib/Eigen/Dense"
 using namespace Eigen;
 
 namespace catlib {

@@ -1,6 +1,6 @@
 #pragma once
 #include "math.h"
-#include "Eigen/Dense"
+#include "catLib/Eigen/Dense"
 using namespace Eigen;
 
 namespace catlib {
