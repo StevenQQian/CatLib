@@ -3,10 +3,10 @@
 CatLib is a library made for VEX V5 Robotics Competition.
 
 Developed By: 
-- Steven | 55286A
-- Nicholas | 9651X 
-- Henry & Alex | 252H 
-- Michael | 210K 
+- Steven | 55288A
+- Jeff | 55288A
+- Henry | 55288A
+- Justin | 55288A
 
 ## Installation instructions:
 See [INSTALL.md](https://github.com/StevenQQian/CatLib/blob/main/docs/1-INSTALL.md)
